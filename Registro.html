@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>RepairOS — Registro de licencia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <style>
+    :root{
+      color-scheme: light dark;
+      --bg:#0b0c0f;
+      --surface:#ffffff;
+      --surface-soft:#f3f4f6;
+      --border:#e5e7eb;
+      --text:#111827;
+      --muted:#6b7280;
+      --accent:#111827;
+      --danger:#b91c1c;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "SF Pro Text", Segoe UI, Roboto, sans-serif;
+      background:radial-gradient(circle at top, #111827 0, #020617 45%, #020617 100%);
+      color:var(--text);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px 12px;
+    }
+    .shell{
+      width:min(1120px, 100%);
+      background:linear-gradient(135deg, rgba(255,255,255,.14), rgba(15,23,42,.08));
+      border-radius:28px;
+      border:1px solid rgba(148,163,184,.45);
+      padding:1px;
+      box-shadow:
+        0 24px 80px rgba(15,23,42,.8),
+        0 0 0 1px rgba(15,23,42,.2);
+      backdrop-filter: blur(12px);
+    }
+    .inner{
+      border-radius:27px;
+      background:radial-gradient(circle at top left,#f9fafb 0,#eef2ff 40%,#f9fafb 100%);
+      padding:24px 24px 20px;
+      display:grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap:24px;
+    }
+    @media (max-width:900px){
+      .inner{
+        grid-template-columns: minmax(0,1fr);
+        padding:20px 16px 16px;
+      }
+    }
+
+    /* Columna izquierda */
+    .brand-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:4px 10px;
+      border-radius:999px;
+      background:rgba(15,23,42,.04);
+      border:1px solid rgba(148,163,184,.5);
+      font-size:11px;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+    .brand-pill-dot{
+      width:6px; height:6px;
+      border-radius:999px;
+      background:#22c55e;
+      box-shadow:0 0 0 4px rgba(34,197,94,.22);
+    }
+    .logo-text{
+      font-size:13px;
+      font-weight:600;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#4b5563;
+    }
+    h1{
+      margin:4px 0 6px;
+      font-size:28px;
+      letter-spacing:-.03em;
+      color:var(--text);
+    }
+    .subtitle{
+      margin:0 0 16px;
+      font-size:14px;
+      color:var(--muted);
+      max-width:36rem;
+    }
+    .steps{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:10px;
+      margin-bottom:16px;
+    }
+    .step{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      font-size:13px;
+      color:#374151;
+    }
+    .step-icon{
+      width:20px;
+      height:20px;
+      border-radius:999px;
+      border:1px solid #d1d5db;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:11px;
+      background:#fff;
+    }
+    .step strong{
+      font-weight:600;
+    }
+    .note-box{
+      padding:8px 10px;
+      border-radius:12px;
+      background:#f9fafb;
+      border:1px dashed #d1d5db;
+      font-size:11.5px;
+      color:#4b5563;
+      max-width:32rem;
+    }
+    .badge-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
+    }
+    .badge{
+      padding:4px 8px;
+      border-radius:999px;
+      font-size:11px;
+      background:#111827;
+      color:#f9fafb;
+    }
+    .badge-outline{
+      padding:4px 8px;
+      border-radius:999px;
+      font-size:11px;
+      border:1px solid #d1d5db;
+      color:#4b5563;
+      background:rgba(255,255,255,.6);
+    }
+
+    /* Columna derecha: formulario */
+    .card{
+      background:var(--surface);
+      border-radius:22px;
+      border:1px solid var(--border);
+      box-shadow:0 16px 40px rgba(148,163,184,.35);
+      padding:18px 18px 14px;
+    }
+    .card-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:8px;
+      margin-bottom:8px;
+    }
+    .card-title{
+      font-size:17px;
+      margin:0 0 2px;
+      color:var(--text);
+    }
+    .card-desc{
+      margin:0;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .pill-small{
+      font-size:10px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid #e5e7eb;
+      background:#f9fafb;
+      color:#4b5563;
+    }
+    form{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .section-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:#9ca3af;
+      margin:4px 0 2px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(210px,1fr));
+      gap:8px 12px;
+    }
+    label{
+      font-size:12px;
+      color:#374151;
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+    }
+    input, select{
+      font-size:13px;
+      font-family:inherit;
+      padding:7px 11px;
+      border-radius:999px;
+      border:1px solid #d1d5db;
+      background:#f9fafb;
+      color:#111827;
+    }
+    input:focus, select:focus{
+      outline:none;
+      border-color:#111827;
+      background:#ffffff;
+      box-shadow:0 0 0 1px rgba(15,23,42,.06);
+    }
+    .hint{
+      font-size:11px;
+      color:#6b7280;
+      margin:2px 0 0;
+    }
+    .footer{
+      margin-top:8px;
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .footer-note{
+      font-size:11px;
+      color:#6b7280;
+    }
+    .btn-row{
+      display:flex;
+      gap:8px;
+      margin-left:auto;
+    }
+    .btn-primary{
+      border:none;
+      border-radius:999px;
+      padding:8px 16px;
+      font-size:13px;
+      font-weight:500;
+      background:#111827;
+      color:#ffffff;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .btn-secondary{
+      border-radius:999px;
+      padding:8px 14px;
+      font-size:12px;
+      border:1px solid #d1d5db;
+      background:#f9fafb;
+      color:#111827;
+      cursor:pointer;
+    }
+    .btn-primary[disabled]{
+      opacity:.7;
+      cursor:wait;
+    }
+    .status-msg{
+      margin-top:6px;
+      font-size:11.5px;
+      color:#4b5563;
+    }
+    .status-error{
+      color:var(--danger);
+    }
+
+    @media (max-width:900px){
+      body{ padding:16px 10px; }
+      .card{ box-shadow:0 14px 30px rgba(15,23,42,.25); }
+      .footer{ flex-direction:column; align-items:flex-start; }
+      .btn-row{ margin-left:0; }
+    }
+
+    /* Link términos */
+    .link-terms{
+      border:none;
+      padding:0;
+      margin:0;
+      background:none;
+      font:inherit;
+      color:#111827;
+      text-decoration:underline;
+      cursor:pointer;
+    }
+    .link-terms:hover{
+      text-decoration:none;
+      color:#000;
+    }
+
+    /* Checkbox términos */
+    .terms-check{
+      display:flex;
+      align-items:flex-start;
+      gap:6px;
+      font-size:11px;
+      color:#6b7280;
+      max-width:320px;
+    }
+    .terms-check input{
+      margin-top:3px;
+      width:14px;
+      height:14px;
+      border-radius:4px;
+    }
+    .terms-check span{
+      line-height:1.4;
+    }
+
+    /* Modal términos */
+    .terms-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(15,23,42,.55);
+      display:none; /* oculto al inicio */
+      align-items:center;
+      justify-content:center;
+      z-index:80;
+      backdrop-filter:blur(6px);
+    }
+    .terms-modal{
+      width:min(760px, 95vw);
+      max-height:90vh;
+      background:#ffffff;
+      border-radius:20px;
+      border:1px solid #e5e7eb;
+      box-shadow:0 20px 60px rgba(15,23,42,.6);
+      display:flex;
+      flex-direction:column;
+    }
+    .terms-header{
+      padding:16px 18px 10px;
+      border-bottom:1px solid #e5e7eb;
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+    }
+    .terms-header h2{
+      margin:0 0 4px;
+      font-size:17px;
+      color:#111827;
+    }
+    .terms-subtitle{
+      margin:0;
+      font-size:12px;
+      color:#6b7280;
+    }
+    .terms-close{
+      border:none;
+      background:none;
+      font-size:20px;
+      line-height:1;
+      cursor:pointer;
+      color:#9ca3af;
+    }
+    .terms-body{
+      padding:12px 18px 8px;
+      overflow:auto;
+    }
+    .terms-block + .terms-block{
+      margin-top:10px;
+    }
+    .terms-block h3{
+      margin:0 0 4px;
+      font-size:13px;
+      color:#111827;
+    }
+    .terms-block p{
+      margin:0 0 4px;
+      font-size:12px;
+      color:#4b5563;
+    }
+    .terms-block ul{
+      margin:0 0 4px 18px;
+      padding:0;
+    }
+    .terms-block li{
+      font-size:12px;
+      color:#4b5563;
+      margin-bottom:2px;
+    }
+    .terms-note{
+      font-size:11px;
+      color:#6b7280;
+    }
+    .terms-footer{
+      padding:10px 18px 12px;
+      border-top:1px solid #e5e7eb;
+      display:flex;
+      justify-content:flex-end;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="inner">
+      <!-- Columna izquierda: texto -->
+      <section>
+        <div class="brand-pill">
+          <span class="brand-pill-dot"></span>
+          <span class="logo-text">RepairOS · by Técnicos y Aprendices</span>
+        </div>
+
+        <h1>Activa tu licencia de RepairOS</h1>
+        <p class="subtitle">
+          Centraliza órdenes, clientes, inventario y finanzas en un solo panel. 
+          Regístrate, realiza el pago y activamos tu acceso en menos de 24 horas hábiles.
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-icon">1</div>
+            <div>
+              <strong>Regístrate con los datos de tu taller.</strong><br>
+              Nombre del negocio, responsable y datos de contacto.
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-icon">2</div>
+            <div>
+              <strong>Elige tu plan y medio de pago.</strong><br>
+              Registramos tu solicitud y luego te enviamos las instrucciones para completar el pago.
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-icon">3</div>
+            <div>
+              <strong>Activamos tu usuario en RepairOS.</strong><br>
+              En máximo <b>24 horas hábiles</b> después de validar el pago, recibirás tu acceso por correo y WhatsApp.
+            </div>
+          </div>
+        </div>
+
+        <div class="note-box">
+          ⚠️ <b>Importante:</b> el acceso se activa de forma manual para validar el pago y configurar tu taller.
+          Asegúrate de ingresar correctamente tu correo y número de WhatsApp.
+        </div>
+
+        <div class="badge-row">
+          <span class="badge">Licencias 3 · 6 · 12 meses</span>
+          <span class="badge-outline">Soporte por WhatsApp</span>
+          <span class="badge-outline">Multiusuario y multi-taller</span>
+        </div>
+      </section>
+
+      <!-- Columna derecha: formulario -->
+      <section>
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Registro de nuevo taller</h2>
+              <p class="card-desc">Completa el formulario para crear tu solicitud de activación.</p>
+            </div>
+            <div class="pill-small">
+              Registro de licencia
+            </div>
+          </div>
+
+          <form id="signupForm" novalidate>
+            <div>
+              <div class="section-label">Datos del taller</div>
+              <div class="grid">
+                <label>
+                  Nombre del taller / negocio
+                  <input type="text" name="store_name" required>
+                </label>
+                <label>
+                  Nombre del responsable
+                  <input type="text" name="owner_name" required>
+                </label>
+                <label>
+                  Correo electrónico
+                  <input type="email" name="email" required>
+                </label>
+                <label>
+                  WhatsApp de contacto
+                  <input type="tel" name="whatsapp" placeholder="57300xxxxxxx" required>
+                </label>
+                <label>
+                  Ciudad / País
+                  <input type="text" name="location" placeholder="Ej: Medellín, Colombia">
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <div class="section-label">Datos de acceso</div>
+              <div class="grid">
+                <label>
+                  Usuario (correo)
+                  <input type="email" name="login_email" required>
+                </label>
+                <label>
+                  Contraseña
+                  <input type="password" name="password" minlength="6" required>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <div class="section-label">Licencia y pago</div>
+              <div class="grid">
+                <label>
+                  Plan de licencia
+                  <select name="license_plan" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="PRO_3M">3 meses</option>
+                    <option value="PRO_6M">6 meses</option>
+                    <option value="PRO_12M">12 meses</option>
+                  </select>
+                </label>
+                <label>
+                  Medio de pago
+                  <select name="payment_method" required>
+                    <option value="EPAYCO">ePayco (tarjeta, PSE, etc.)</option>
+                    <option value="BINANCE">Binance (pago manual)</option>
+                    <option value="PAYPAL">PayPal (pago manual)</option>
+                    <option value="WU">Western Union (pago manual)</option>
+                  </select>
+                </label>
+              </div>
+              <p class="hint">
+                Después de enviar este formulario registraremos tu solicitud y, en las próximas horas, 
+                te contactaremos por correo o WhatsApp con las instrucciones para realizar el pago según el medio elegido.
+              </p>
+            </div>
+
+            <div class="footer">
+              <label class="terms-check">
+                <input type="checkbox" name="accept_terms" id="acceptTermsCheckbox" required>
+                <span>
+                  Declaro que he leído y acepto el
+                  <button type="button" class="link-terms" id="openTermsBtn">
+                    tratamiento de datos y el uso de RepairOS bajo licencia
+                  </button>.
+                </span>
+              </label>
+
+              <div class="btn-row">
+                <button type="button" class="btn-secondary" onclick="window.history.back()">Volver</button>
+                <button type="submit" class="btn-primary" id="submitBtn">
+                  Enviar solicitud
+                  <span id="btnSpinner" style="display:none;">⏳</span>
+                </button>
+              </div>
+            </div>
+
+            <div id="statusMsg" class="status-msg"></div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- MODAL TÉRMINOS -->
+  <div class="terms-overlay" id="termsOverlay">
+    <div class="terms-modal" role="dialog" aria-modal="true" aria-labelledby="termsTitle">
+      <header class="terms-header">
+        <div>
+          <h2 id="termsTitle">Términos de uso y tratamiento de datos</h2>
+          <p class="terms-subtitle">
+            Resumen de cómo usamos tu información y cómo funciona la licencia de RepairOS.
+          </p>
+        </div>
+        <button type="button" class="terms-close" id="closeTermsBtn" aria-label="Cerrar">×</button>
+      </header>
+
+      <div class="terms-body">
+        <section class="terms-block">
+          <h3>1. Tratamiento de datos personales</h3>
+          <p>
+            Al registrar tus datos en este formulario, autorizas de manera libre, previa, expresa e informada a
+            <b>Técnicos y Aprendices</b> y su sistema <b>RepairOS</b> para el tratamiento de tu información personal,
+            conforme a lo dispuesto por la Ley 1581 de 2012 y normas complementarias sobre protección de datos personales.
+          </p>
+          <ul>
+            <li>La información suministrada se empleará exclusivamente para procesar tu solicitud de licencia, activar tu acceso a RepairOS y ofrecer soporte técnico o administrativo relacionado con el servicio.</li>
+            <li>Podrás solicitar la actualización, rectificación o eliminación de tus datos en cualquier momento escribiendo a nuestro canal oficial de soporte.</li>
+            <li>No compartimos tu información con terceros ajenos al proceso de pago o la operación del sistema, salvo requerimientos legales de autoridad competente.</li>
+          </ul>
+        </section>
+
+        <section class="terms-block">
+          <h3>2. Condiciones de uso de la licencia RepairOS</h3>
+          <p>
+            La licencia de uso otorgada es personal e intransferible, exclusiva para el taller o negocio registrado.
+            Su vigencia dependerá del plan seleccionado (3, 6 o 12 meses) y se regirá por los presentes términos.
+          </p>
+          <ul>
+            <li>El titular del acceso se compromete a usar la plataforma únicamente para fines legítimos de gestión y administración de su negocio.</li>
+            <li>Está estrictamente prohibida la reventa, cesión o uso compartido de la cuenta o de los accesos con terceros ajenos al negocio.</li>
+            <li>En caso de incumplimiento o uso indebido, Técnicos y Aprendices podrá suspender o revocar la licencia sin derecho a reembolso.</li>
+            <li>La renovación de la licencia deberá solicitarse y pagarse nuevamente al vencimiento del periodo contratado.</li>
+          </ul>
+        </section>
+
+        <section class="terms-block">
+          <h3>3. Pagos, activación y facturación</h3>
+          <p>
+            Los pagos se procesan principalmente a través de la pasarela <b>ePayco</b> (tarjeta, PSE u otros medios habilitados).
+            En ningún momento <b>RepairOS</b> almacena información de tarjetas de crédito o datos financieros del usuario.
+          </p>
+          <ul>
+            <li>El acceso será activado en un plazo máximo de <b>24 horas hábiles</b> después de confirmar el pago.</li>
+            <li>Las facturas o comprobantes de pago serán generados electrónicamente y enviados al correo registrado.</li>
+            <li>Las solicitudes de devolución o ajustes serán analizadas caso por caso y deberán presentarse por escrito a soporte.</li>
+            <li>La falta de pago o información incorrecta podrá causar el rechazo o suspensión de la solicitud.</li>
+          </ul>
+        </section>
+
+        <section class="terms-block">
+          <h3>4. Pagos manuales por Binance, PayPal o Western Union</h3>
+          <p>
+            En caso de seleccionar un medio de pago manual, deberás comunicarte con nuestro canal oficial de soporte por WhatsApp
+            <b>+57 321 917 7941</b> y elegir la opción <b>“Pagos Manual RepairOS”</b> para recibir las instrucciones seguras y actualizadas.
+          </p>
+          <ul>
+            <li><b>Binance (USDT):</b> se enviará el correo o código de wallet al contacto autorizado una vez validados tus datos.</li>
+            <li><b>PayPal:</b> se informará el correo de pagos activo para transferencias internacionales seguras.</li>
+            <li><b>Western Union:</b> se proporcionarán los datos del receptor, ciudad y país según tu ubicación y método de envío.</li>
+          </ul>
+          <p class="terms-note">
+            Ningún pago manual debe realizarse sin confirmación previa del equipo de soporte. RepairOS no se hace responsable
+            por envíos realizados a direcciones o contactos no oficiales.
+          </p>
+        </section>
+
+        <section class="terms-block">
+          <h3>5. Limitación de responsabilidad</h3>
+          <p>
+            Técnicos y Aprendices no se hace responsable por fallas técnicas, interrupciones de terceros, demoras bancarias,
+            ni por el mal uso que los usuarios puedan dar al sistema o a sus credenciales. El uso indebido del servicio podrá
+            ser sancionado con la suspensión definitiva de la cuenta.
+          </p>
+        </section>
+
+        <section class="terms-block">
+          <h3>6. Aceptación</h3>
+          <p>
+            Al marcar la casilla de aceptación y continuar con el registro, declaras haber leído, comprendido y aceptado la
+            totalidad de los presentes términos y condiciones, así como las políticas de privacidad y tratamiento de datos
+            personales de RepairOS.
+          </p>
+        </section>
+      </div>
+
+      <footer class="terms-footer">
+        <button type="button" class="btn-primary" id="acceptTermsBtn">He leído y entiendo estos términos</button>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+  // URL exclusiva del backend de registro
+  const GAS_EXEC = "https://script.google.com/macros/s/AKfycbwrmoUkQmRrSxsKRJkWtGc7nMjhngoCHSKTcwQo-8TdSW6qqMF5LZXS1XFuRgaLmHU5/exec";
+
+  const signupForm    = document.getElementById('signupForm');
+  const submitBtn     = document.getElementById('submitBtn');
+  const btnSpinner    = document.getElementById('btnSpinner');
+  const statusMsg     = document.getElementById('statusMsg');
+  const termsCheckbox = document.getElementById('acceptTermsCheckbox');
+
+  // control de lectura de términos
+  let termsViewedEnough = false;
+  let termsTimer = null;
+  const MIN_TERMS_MS = 8000; // 8 segundos de "lectura"
+
+  function setLoading(isLoading){
+    if(isLoading){
+      submitBtn.disabled = true;
+      btnSpinner.style.display = 'inline';
+    }else{
+      submitBtn.disabled = false;
+      btnSpinner.style.display = 'none';
+    }
+  }
+
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusMsg.textContent = "";
+    statusMsg.classList.remove('status-error');
+
+    // Validación de términos
+    if(!termsCheckbox.checked){
+      alert('Debes aceptar los términos y condiciones para continuar.');
+      return;
+    }
+    if(!termsViewedEnough){
+      alert('Por favor abre y revisa los términos y condiciones antes de continuar.');
+      openTerms(); // forzamos a abrirlos
+      return;
+    }
+
+    const data = Object.fromEntries(new FormData(signupForm).entries());
+
+    if(!data.login_email) data.login_email = data.email;
+
+    // normalizar aceptación de términos
+    data.accept_terms = data.accept_terms ? "YES" : "NO";
+
+    const payload = {
+      fn: 'publicSignup',
+      data
+    };
+
+    try{
+      setLoading(true);
+
+      const res = await fetch(GAS_EXEC, {
+        method:'POST',
+        headers:{ 'Content-Type':'text/plain' },
+        body: JSON.stringify(payload)
+      });
+
+      const out = await res.json();
+      setLoading(false);
+
+      if(out.ok){
+        statusMsg.textContent =
+          "Solicitud registrada correctamente. En las próximas horas te contactaremos por correo o WhatsApp con las instrucciones de pago.";
+        signupForm.reset();
+        termsViewedEnough = false; // reset
+
+        // IMPORTANTE: por ahora NO redirigimos a ningún checkout.
+        // Cuando actives pagos automáticos, aquí puedes usar out.checkoutUrl si tu backend lo envía.
+        // if(out.checkoutUrl){
+        //   window.location.href = out.checkoutUrl;
+        // }
+
+      }else{
+        statusMsg.textContent = out.message || "No se pudo registrar la solicitud. Intenta nuevamente.";
+        statusMsg.classList.add('status-error');
+      }
+    }catch(err){
+      console.error(err);
+      setLoading(false);
+      statusMsg.textContent = "Error de conexión. Verifica tu internet e inténtalo de nuevo.";
+      statusMsg.classList.add('status-error');
+    }
+  });
+
+  // ===== TÉRMINOS: ABRIR / CERRAR MODAL =====
+  const termsOverlay   = document.getElementById('termsOverlay');
+  const openTermsBtn   = document.getElementById('openTermsBtn');
+  const closeTermsBtn  = document.getElementById('closeTermsBtn');
+  const acceptTermsBtn = document.getElementById('acceptTermsBtn');
+
+  function openTerms(){
+    termsOverlay.style.display = 'flex';
+    termsViewedEnough = false;
+    if(termsTimer) clearTimeout(termsTimer);
+    termsTimer = setTimeout(() => {
+      termsViewedEnough = true;
+    }, MIN_TERMS_MS);
+  }
+  function closeTerms(){
+    termsOverlay.style.display = 'none';
+  }
+
+  if(openTermsBtn)   openTermsBtn.addEventListener('click', openTerms);
+  if(closeTermsBtn)  closeTermsBtn.addEventListener('click', closeTerms);
+  if(acceptTermsBtn) acceptTermsBtn.addEventListener('click', () => {
+    termsCheckbox.checked = true; // marcar casilla al aceptar
+    closeTerms();
+  });
+  </script>
+</body>
+</html>
+
+
