@@ -6,21 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <style>
     :root{
-      color-scheme: light dark;
-      --bg:#0b0c0f;
+      color-scheme: light;
+      --bg:#000000;
       --surface:#ffffff;
-      --surface-soft:#f3f4f6;
+      --surface-soft:#f9fafb;
       --border:#e5e7eb;
       --text:#111827;
       --muted:#6b7280;
-      --accent:#111827;
+      --accent:#000000;
       --danger:#b91c1c;
     }
     *{ box-sizing:border-box; }
     body{
       margin:0;
       font-family: system-ui, -apple-system, "SF Pro Text", Segoe UI, Roboto, sans-serif;
-      background:radial-gradient(circle at top, #111827 0, #020617 45%, #020617 100%);
+      background:var(--bg);
       color:var(--text);
       min-height:100vh;
       display:flex;
@@ -30,21 +30,18 @@
     }
     .shell{
       width:min(1120px, 100%);
-      background:linear-gradient(135deg, rgba(255,255,255,.14), rgba(15,23,42,.08));
+      background:var(--surface);
       border-radius:28px;
-      border:1px solid rgba(148,163,184,.45);
+      border:1px solid #000;
       padding:1px;
-      box-shadow:
-        0 24px 80px rgba(15,23,42,.8),
-        0 0 0 1px rgba(15,23,42,.2);
-      backdrop-filter: blur(12px);
+      box-shadow:0 30px 80px rgba(0,0,0,.8);
     }
     .inner{
       border-radius:27px;
-      background:radial-gradient(circle at top left,#f9fafb 0,#eef2ff 40%,#f9fafb 100%);
+      background:var(--surface);
       padding:24px 24px 20px;
       display:grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
       gap:24px;
     }
     @media (max-width:900px){
@@ -61,8 +58,8 @@
       gap:8px;
       padding:4px 10px;
       border-radius:999px;
-      background:rgba(15,23,42,.04);
-      border:1px solid rgba(148,163,184,.5);
+      background:#f3f4f6;
+      border:1px solid #111827;
       font-size:11px;
       color:var(--muted);
       margin-bottom:10px;
@@ -70,85 +67,87 @@
     .brand-pill-dot{
       width:6px; height:6px;
       border-radius:999px;
-      background:#22c55e;
-      box-shadow:0 0 0 4px rgba(34,197,94,.22);
+      background:#000;
     }
     .logo-text{
-      font-size:13px;
+      font-size:12px;
       font-weight:600;
       letter-spacing:.08em;
       text-transform:uppercase;
-      color:#4b5563;
+      color:#111827;
     }
     h1{
       margin:4px 0 6px;
-      font-size:28px;
+      font-size:26px;
       letter-spacing:-.03em;
       color:var(--text);
     }
     .subtitle{
-      margin:0 0 16px;
-      font-size:14px;
+      margin:0 0 12px;
+      font-size:13px;
       color:var(--muted);
-      max-width:36rem;
+      max-width:30rem;
     }
     .steps{
       display:flex;
       flex-direction:column;
-      gap:10px;
-      margin-top:10px;
-      margin-bottom:16px;
+      gap:8px;
+      margin-top:8px;
+      margin-bottom:12px;
     }
     .step{
       display:flex;
-      gap:10px;
+      gap:8px;
       align-items:flex-start;
-      font-size:13px;
-      color:#374151;
+      font-size:12px;
+      color:#111827;
     }
     .step-icon{
-      width:20px;
-      height:20px;
+      width:18px;
+      height:18px;
       border-radius:999px;
-      border:1px solid #d1d5db;
+      border:1px solid #000;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:11px;
+      font-size:10px;
       background:#fff;
+      color:#000;
+      flex-shrink:0;
     }
     .step strong{
       font-weight:600;
     }
     .note-box{
       padding:8px 10px;
-      border-radius:12px;
+      border-radius:10px;
       background:#f9fafb;
-      border:1px dashed #d1d5db;
-      font-size:11.5px;
-      color:#4b5563;
-      max-width:32rem;
+      border:1px dashed #111827;
+      font-size:11px;
+      color:#111827;
+      max-width:30rem;
     }
     .badge-row{
       display:flex;
       flex-wrap:wrap;
-      gap:8px;
-      margin-top:14px;
+      gap:6px;
+      margin-top:12px;
+    }
+    .badge,
+    .badge-outline{
+      padding:3px 8px;
+      border-radius:999px;
+      font-size:10px;
+      white-space:nowrap;
     }
     .badge{
-      padding:4px 8px;
-      border-radius:999px;
-      font-size:11px;
-      background:#111827;
+      background:#000;
       color:#f9fafb;
     }
     .badge-outline{
-      padding:4px 8px;
-      border-radius:999px;
-      font-size:11px;
-      border:1px solid #d1d5db;
-      color:#4b5563;
-      background:rgba(255,255,255,.6);
+      border:1px solid #111827;
+      color:#111827;
+      background:#ffffff;
     }
 
     /* Columna derecha: formulario */
@@ -156,8 +155,9 @@
       background:var(--surface);
       border-radius:22px;
       border:1px solid var(--border);
-      box-shadow:0 16px 40px rgba(148,163,184,.35);
+      box-shadow:0 16px 40px rgba(0,0,0,.18);
       padding:18px 18px 14px;
+      position:relative;
     }
     .card-header{
       display:flex;
@@ -174,15 +174,15 @@
     .card-desc{
       margin:0;
       font-size:12px;
-      color:var(--muted);
+      color:#6b7280;
     }
     .pill-small{
       font-size:10px;
       padding:4px 8px;
       border-radius:999px;
-      border:1px solid #e5e7eb;
-      background:#f9fafb;
-      color:#4b5563;
+      border:1px solid #111827;
+      background:#ffffff;
+      color:#111827;
     }
     form{
       display:flex;
@@ -193,7 +193,7 @@
       font-size:11px;
       text-transform:uppercase;
       letter-spacing:.12em;
-      color:#9ca3af;
+      color:#6b7280;
       margin:4px 0 2px;
     }
     .grid{
@@ -203,25 +203,37 @@
     }
     label{
       font-size:12px;
-      color:#374151;
+      color:#111827;
       display:flex;
       flex-direction:column;
-      gap:3px;
+      gap:6px;
+      position:relative;
     }
     input, select{
       font-size:13px;
       font-family:inherit;
       padding:7px 11px;
       border-radius:999px;
-      border:1px solid #d1d5db;
-      background:#f9fafb;
+      border:1px solid #111827;
+      background:#ffffff;
       color:#111827;
+    }
+    input::placeholder{
+      color:#9ca3af;
+    }
+    select{
+      appearance:none;
+      -webkit-appearance:none;
+      -moz-appearance:none;
+      background-image:linear-gradient(45deg,transparent 50%,#111827 50%),linear-gradient(135deg,#111827 50%,transparent 50%);
+      background-position:calc(100% - 14px) 11px,calc(100% - 9px) 11px;
+      background-size:5px 5px;
+      background-repeat:no-repeat;
     }
     input:focus, select:focus{
       outline:none;
-      border-color:#111827;
-      background:#ffffff;
-      box-shadow:0 0 0 1px rgba(15,23,42,.06);
+      border-color:#000;
+      box-shadow:0 0 0 1px #000;
     }
     .hint{
       font-size:11px;
@@ -236,10 +248,6 @@
       align-items:center;
       flex-wrap:wrap;
     }
-    .footer-note{
-      font-size:11px;
-      color:#6b7280;
-    }
     .btn-row{
       display:flex;
       gap:8px;
@@ -251,30 +259,43 @@
       padding:8px 16px;
       font-size:13px;
       font-weight:500;
-      background:#111827;
+      background:#000;
       color:#ffffff;
       cursor:pointer;
       display:inline-flex;
       align-items:center;
       gap:8px;
+      transition:transform .08s ease, box-shadow .08s ease, background .08s ease;
+      box-shadow:0 8px 18px rgba(0,0,0,.4);
+    }
+    .btn-primary:hover{
+      background:#111;
+      transform:translateY(-1px);
+      box-shadow:0 12px 26px rgba(0,0,0,.55);
     }
     .btn-secondary{
       border-radius:999px;
       padding:8px 14px;
       font-size:12px;
-      border:1px solid #d1d5db;
-      background:#f9fafb;
+      border:1px solid #111827;
+      background:#ffffff;
       color:#111827;
       cursor:pointer;
+      transition:background .08s ease, color .08s ease;
+    }
+    .btn-secondary:hover{
+      background:#111827;
+      color:#ffffff;
     }
     .btn-primary[disabled]{
       opacity:.7;
       cursor:wait;
+      box-shadow:none;
     }
     .status-msg{
       margin-top:6px;
       font-size:11.5px;
-      color:#4b5563;
+      color:#111827;
     }
     .status-error{
       color:var(--danger);
@@ -282,7 +303,7 @@
 
     @media (max-width:900px){
       body{ padding:16px 10px; }
-      .card{ box-shadow:0 14px 30px rgba(15,23,42,.25); }
+      .card{ box-shadow:0 14px 30px rgba(0,0,0,.25); }
       .footer{ flex-direction:column; align-items:flex-start; }
       .btn-row{ margin-left:0; }
     }
@@ -317,6 +338,8 @@
       width:14px;
       height:14px;
       border-radius:4px;
+      border:1px solid #111827;
+      background:#ffffff;
     }
     .terms-check span{
       line-height:1.4;
@@ -326,8 +349,8 @@
     .terms-overlay{
       position:fixed;
       inset:0;
-      background:rgba(15,23,42,.55);
-      display:none; /* oculto al inicio */
+      background:rgba(0,0,0,.45);
+      display:none;
       align-items:center;
       justify-content:center;
       z-index:80;
@@ -338,10 +361,11 @@
       max-height:90vh;
       background:#ffffff;
       border-radius:20px;
-      border:1px solid #e5e7eb;
-      box-shadow:0 20px 60px rgba(15,23,42,.6);
+      border:1px solid #000;
+      box-shadow:0 20px 60px rgba(0,0,0,.8);
       display:flex;
       flex-direction:column;
+      color:#111827;
     }
     .terms-header{
       padding:16px 18px 10px;
@@ -404,6 +428,135 @@
       display:flex;
       justify-content:flex-end;
     }
+
+    /* Password toggle */
+    .password-wrap{
+      position:relative;
+      display:flex;
+      align-items:center;
+    }
+    .password-wrap input{
+      width:100%;
+      padding-right:32px;
+    }
+    .password-toggle{
+      position:absolute;
+      right:10px;
+      top:50%;
+      transform:translateY(-50%);
+      border:none;
+      background:none;
+      cursor:pointer;
+      font-size:14px;
+      color:#6b7280;
+    }
+
+    /* WhatsApp teléfono con país - custom select con banderas */
+    .phone-row{
+      display:grid;
+      grid-template-columns:minmax(0,150px) minmax(0,1fr);
+      gap:6px;
+      align-items:center;
+    }
+    .phone-row input[type="tel"]{
+      width:100%;
+    }
+    .country-select{
+      position:relative;
+      width:100%;
+      max-width:150px;
+    }
+    .country-select-btn{
+      width:100%;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      justify-content:flex-start;
+      border-radius:999px;
+      border:1px solid #111827;
+      background:#ffffff;
+      padding:7px 10px;
+      font-size:13px;
+      cursor:pointer;
+    }
+    .country-flag{
+      font-size:16px;
+    }
+    .country-dial{
+      font-weight:500;
+    }
+    .country-name-short{
+      font-size:11px;
+      color:#6b7280;
+    }
+    .country-select-dropdown{
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      margin-top:6px;
+      background:#ffffff;
+      border-radius:14px;
+      border:1px solid #e5e7eb;
+      box-shadow:0 10px 30px rgba(15,23,42,.25);
+      z-index:60;
+      display:none;
+      overflow:hidden;
+    }
+    .country-search{
+      width:100%;
+      border:none;
+      border-bottom:1px solid #e5e7eb;
+      padding:8px 10px;
+      font-size:13px;
+      outline:none;
+    }
+    .country-options{
+      max-height:220px;
+      overflow:auto;
+    }
+    .country-option{
+      width:100%;
+      border:none;
+      background:#ffffff;
+      padding:6px 10px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:13px;
+      cursor:pointer;
+      text-align:left;
+    }
+    .country-option span{
+      pointer-events:none;
+    }
+    .country-option:hover{
+      background:#f3f4f6;
+    }
+
+    /* Email suggestions (píldoras) */
+    .email-suggestions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:4px;
+      margin-top:3px;
+    }
+    .email-pill{
+      border-radius:999px;
+      border:1px solid #d1d5db;
+      padding:2px 8px;
+      font-size:11px;
+      cursor:pointer;
+      background:#f9fafb;
+      color:#4b5563;
+    }
+    .email-pill:hover{
+      background:#111827;
+      color:#ffffff;
+      border-color:#111827;
+    }
+
+    option[disabled]{ color:#9ca3af; }
   </style>
 </head>
 <body>
@@ -416,10 +569,10 @@
           <span class="logo-text">RepairOS · by Técnicos y Aprendices</span>
         </div>
 
-        <h1>Activa tu licencia de RepairOS</h1>
+        <h1>Activa la licencia de tu taller en RepairOS</h1>
         <p class="subtitle">
-          Centraliza órdenes, clientes, inventario y finanzas en un solo panel. 
-          Regístrate, realiza el pago y activamos tu acceso en menos de 24 horas hábiles.
+          Centraliza órdenes, clientes, inventario y finanzas en un solo panel profesional. 
+          Registra tu taller, elige tu plan y activamos tu acceso en menos de 24 horas hábiles.
         </p>
 
         <div class="steps">
@@ -427,7 +580,7 @@
             <div class="step-icon">1</div>
             <div>
               <strong>Regístrate con los datos de tu taller.</strong><br>
-              Nombre del negocio, responsable y datos de contacto.
+              Nombre del negocio, responsable y canales de contacto.
             </div>
           </div>
           <div class="step">
@@ -448,12 +601,12 @@
 
         <div class="note-box">
           ⚠️ <b>Importante:</b> el acceso se activa de forma manual para validar el pago y configurar tu taller.
-          Asegúrate de ingresar correctamente tu correo y número de WhatsApp.
+          Asegúrate de ingresar correctamente tu correo y número de WhatsApp, allí enviaremos toda la información de acceso.
         </div>
 
         <div class="badge-row">
-          <span class="badge">Licencias 3 · 6 · 12 meses</span>
-          <span class="badge-outline">Soporte por WhatsApp</span>
+          <span class="badge">Licencias 1 · 6 · 12 meses</span>
+          <span class="badge-outline">Soporte especializado por WhatsApp</span>
           <span class="badge-outline">Multiusuario y multi-taller</span>
         </div>
       </section>
@@ -464,7 +617,9 @@
           <div class="card-header">
             <div>
               <h2 class="card-title">Registro de nuevo taller</h2>
-              <p class="card-desc">Completa el formulario para crear tu solicitud de activación.</p>
+              <p class="card-desc">
+                Completa el formulario para solicitar la activación de tu licencia.
+              </p>
             </div>
             <div class="pill-small">
               Registro de licencia
@@ -477,19 +632,34 @@
               <div class="grid">
                 <label>
                   Nombre del taller / negocio
-                  <input type="text" name="store_name" required>
+                  <input type="text" name="store_name" placeholder="Ej: FixXpert Centro de Reparaciones" required>
                 </label>
                 <label>
                   Nombre del responsable
-                  <input type="text" name="owner_name" required>
+                  <input type="text" name="owner_name" placeholder="Nombre y apellido del responsable" required>
                 </label>
                 <label>
                   Correo electrónico
-                  <input type="email" name="email" required>
+                  <input type="email" name="email" id="emailMain" placeholder="Correo principal para notificaciones" required>
+                  <div class="email-suggestions" id="emailSuggestions" style="display:none;"></div>
                 </label>
                 <label>
                   WhatsApp de contacto
-                  <input type="tel" name="whatsapp" placeholder="57300xxxxxxx" required>
+                  <div class="phone-row">
+                    <div class="country-select" id="countrySelect">
+                      <button type="button" class="country-select-btn" id="countrySelectBtn">
+                        <span class="country-flag" id="countryFlag">🇨🇴</span>
+                        <span class="country-dial" id="countryDial">+57</span>
+                        <span class="country-name-short" id="countryShort">Colombia</span>
+                      </button>
+                      <div class="country-select-dropdown" id="countryDropdown">
+                        <input type="text" class="country-search" id="countrySearch" placeholder="Buscar país o código">
+                        <div class="country-options" id="countryOptions"></div>
+                      </div>
+                    </div>
+                    <input type="tel" name="whatsapp_number" id="whatsappNumber" placeholder="3000000000" required>
+                    <input type="hidden" name="country_code" id="countryCode" value="+57">
+                  </div>
                 </label>
                 <label>
                   Ciudad / País
@@ -503,11 +673,15 @@
               <div class="grid">
                 <label>
                   Usuario (correo)
-                  <input type="email" name="login_email" required>
+                  <input type="email" name="login_email" id="loginEmail" placeholder="Puedes usar el mismo correo de notificaciones" required>
+                  <p class="hint">Recomendado: usar el mismo correo de notificaciones para tu usuario de acceso.</p>
                 </label>
                 <label>
                   Contraseña
-                  <input type="password" name="password" minlength="6" required>
+                  <div class="password-wrap">
+                    <input type="password" name="password" id="passwordInput" minlength="6" placeholder="Crea una contraseña segura" required>
+                    <button type="button" class="password-toggle" id="togglePass" aria-label="Mostrar u ocultar contraseña">👁️</button>
+                  </div>
                 </label>
               </div>
             </div>
@@ -518,16 +692,16 @@
                 <label>
                   Plan de licencia
                   <select name="license_plan" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="PRO_3M">3 meses</option>
+                    <option value="">Selecciona un plan</option>
+                    <option value="PRO_1M">1 mes</option>
                     <option value="PRO_6M">6 meses</option>
                     <option value="PRO_12M">12 meses</option>
                   </select>
                 </label>
                 <label>
                   Medio de pago
-                  <select name="payment_method" required>
-                    <option value="EPAYCO">ePayco (tarjeta, PSE, etc.)</option>
+                  <select name="payment_method" id="paymentMethod" required>
+                    <option value="EPAYCO" disabled>ePayco (tarjeta, PSE, etc.) — temporalmente no disponible</option>
                     <option value="BINANCE">Binance (pago manual)</option>
                     <option value="PAYPAL">PayPal (pago manual)</option>
                     <option value="WU">Western Union (pago manual)</option>
@@ -535,8 +709,9 @@
                 </label>
               </div>
               <p class="hint">
-                Después de enviar este formulario registraremos tu solicitud y, en las próximas horas, 
-                te contactaremos por correo o WhatsApp con las instrucciones para realizar el pago según el medio elegido.
+                Después de enviar este formulario registraremos tu solicitud. En las próximas horas te contactaremos por correo 
+                o WhatsApp con las instrucciones para realizar el pago según el medio elegido.<br>
+                <b>¿Necesitas un plan especial?</b> Haz tu registro y nuestro equipo se pondrá en contacto contigo.
               </p>
             </div>
 
@@ -552,7 +727,7 @@
               </label>
 
               <div class="btn-row">
-                <button type="button" class="btn-secondary" onclick="window.history.back()">Volver</button>
+                <button type="button" class="btn-secondary" onclick="window.location.href='https://yepez8981.github.io/RepairOS/'">Volver</button>
                 <button type="submit" class="btn-primary" id="submitBtn">
                   Enviar solicitud
                   <span id="btnSpinner" style="display:none;">⏳</span>
@@ -582,79 +757,103 @@
 
       <div class="terms-body">
         <section class="terms-block">
-          <h3>1. Tratamiento de datos personales</h3>
+          <h3>1. Protección y manejo de datos personales</h3>
           <p>
-            Al registrar tus datos en este formulario, autorizas de manera libre, previa, expresa e informada a
-            <b>Técnicos y Aprendices</b> y su sistema <b>RepairOS</b> para el tratamiento de tu información personal,
-            conforme a lo dispuesto por la Ley 1581 de 2012 y normas complementarias sobre protección de datos personales.
+            En <b>Técnicos y Aprendices</b> respetamos tu privacidad y el uso responsable de tu información.
+            Al registrarte o usar <b>RepairOS</b>, aceptas las siguientes condiciones de uso y políticas de protección de datos,
+            diseñadas conforme a la legislación colombiana y estándares internacionales (GDPR y CCPA).
+          </p>
+          <p>La información que registras se usa exclusivamente para:</p>
+          <ul>
+            <li>Crear y administrar tu cuenta.</li>
+            <li>Activar tu licencia de RepairOS.</li>
+            <li>Brindar soporte técnico o administrativo.</li>
+            <li>Enviar notificaciones, recordatorios o comprobantes de pago.</li>
+          </ul>
+          <p>
+            Tus datos se almacenan en servidores seguros y <b>no se comparten con terceros</b> fuera de los procesos
+            de pago o requerimientos legales de autoridad competente.
+          </p>
+          <p>
+            Podés solicitar en cualquier momento la actualización, rectificación o eliminación de tus datos escribiendo a nuestro canal oficial de soporte:<br>
+            📲 <b>WhatsApp +57 321 917 7941</b>
+          </p>
+        </section>
+
+        <section class="terms-block">
+          <h3>2. Uso de la licencia RepairOS</h3>
+          <p>
+            La licencia que te otorgamos es <b>personal, exclusiva y no transferible</b>, válida únicamente para el taller
+            o negocio registrado en el formulario.
           </p>
           <ul>
-            <li>La información suministrada se empleará exclusivamente para procesar tu solicitud de licencia, activar tu acceso a RepairOS y ofrecer soporte técnico o administrativo relacionado con el servicio.</li>
-            <li>Podrás solicitar la actualización, rectificación o eliminación de tus datos en cualquier momento escribiendo a nuestro canal oficial de soporte.</li>
-            <li>No compartimos tu información con terceros ajenos al proceso de pago o la operación del sistema, salvo requerimientos legales de autoridad competente.</li>
+            <li>Solo el titular y su equipo autorizado pueden utilizar el acceso.</li>
+            <li>Está prohibida la reventa, alquiler, préstamo o cesión de la cuenta a terceros ajenos al negocio.</li>
+            <li>El uso indebido de la cuenta puede generar la <b>suspensión inmediata del acceso sin reembolso</b>.</li>
+          </ul>
+          <p>
+            Cada plan (1, 6 o 12 meses) tiene vigencia limitada y debe renovarse una vez cumplido el periodo contratado.
+          </p>
+        </section>
+
+        <section class="terms-block">
+          <h3>3. Pagos y activación</h3>
+          <p>
+            Los pagos se realizan por <b>pasarelas seguras</b> o medios autorizados (ePayco, PayPal, Binance, Western Union u otros
+            medios informados oficialmente). RepairOS <b>no almacena</b> datos de tarjetas de crédito ni información bancaria sensible.
+          </p>
+          <ul>
+            <li>La activación del servicio se realiza dentro de las <b>24 horas hábiles</b> posteriores a la confirmación del pago.</li>
+            <li>En pagos manuales (Binance, PayPal, WU, etc.) siempre debes confirmar los datos con nuestro soporte oficial antes de enviar dinero.</li>
+            <li>Técnicos y Aprendices no se hace responsable por pagos enviados a contactos o cuentas no oficiales.</li>
           </ul>
         </section>
 
         <section class="terms-block">
-          <h3>2. Condiciones de uso de la licencia RepairOS</h3>
-          <p>
-            La licencia de uso otorgada es personal e intransferible, exclusiva para el taller o negocio registrado.
-            Su vigencia dependerá del plan seleccionado (3, 6 o 12 meses) y se regirá por los presentes términos.
-          </p>
+          <h3>4. Responsabilidad del usuario</h3>
           <ul>
-            <li>El titular del acceso se compromete a usar la plataforma únicamente para fines legítimos de gestión y administración de su negocio.</li>
-            <li>Está estrictamente prohibida la reventa, cesión o uso compartido de la cuenta o de los accesos con terceros ajenos al negocio.</li>
-            <li>En caso de incumplimiento o uso indebido, Técnicos y Aprendices podrá suspender o revocar la licencia sin derecho a reembolso.</li>
-            <li>La renovación de la licencia deberá solicitarse y pagarse nuevamente al vencimiento del periodo contratado.</li>
+            <li>El usuario es responsable de la veracidad de la información que registra en el sistema.</li>
+            <li>El usuario debe proteger sus credenciales y no compartirlas con personas no autorizadas.</li>
+            <li>RepairOS se ofrece “tal cual”, sin garantía de disponibilidad continua, pudiendo presentar mantenimientos o interrupciones.</li>
+            <li>Técnicos y Aprendices no se hace responsable por fallas externas, demoras de terceros o pérdida de información causada por un mal uso del sistema.</li>
           </ul>
         </section>
 
         <section class="terms-block">
-          <h3>3. Pagos, activación y facturación</h3>
+          <h3>5. Propiedad intelectual</h3>
           <p>
-            Los pagos se procesan principalmente a través de la pasarela <b>ePayco</b> (tarjeta, PSE u otros medios habilitados).
-            En ningún momento <b>RepairOS</b> almacena información de tarjetas de crédito o datos financieros del usuario.
+            RepairOS, su diseño, logotipo, código y materiales asociados son propiedad exclusiva de <b>Técnicos y Aprendices</b>.
           </p>
           <ul>
-            <li>El acceso será activado en un plazo máximo de <b>24 horas hábiles</b> después de confirmar el pago.</li>
-            <li>Las facturas o comprobantes de pago serán generados electrónicamente y enviados al correo registrado.</li>
-            <li>Las solicitudes de devolución o ajustes serán analizadas caso por caso y deberán presentarse por escrito a soporte.</li>
-            <li>La falta de pago o información incorrecta podrá causar el rechazo o suspensión de la solicitud.</li>
+            <li>Está prohibido copiar, modificar, descompilar o redistribuir el sistema sin autorización escrita.</li>
+            <li>Cualquier uso no autorizado puede dar lugar a acciones legales según la normativa vigente.</li>
           </ul>
         </section>
 
         <section class="terms-block">
-          <h3>4. Pagos manuales por Binance, PayPal o Western Union</h3>
+          <h3>6. Seguridad de la información</h3>
           <p>
-            En caso de seleccionar un medio de pago manual, deberás comunicarte con nuestro canal oficial de soporte por WhatsApp
-            <b>+57 321 917 7941</b> y elegir la opción <b>“Pagos Manual RepairOS”</b> para recibir las instrucciones seguras y actualizadas.
+            Implementamos medidas técnicas y organizativas para proteger tus datos, incluyendo cifrado, controles de acceso
+            y monitoreo de seguridad.
           </p>
           <ul>
-            <li><b>Binance (USDT):</b> se enviará el correo o código de wallet al contacto autorizado una vez validados tus datos.</li>
-            <li><b>PayPal:</b> se informará el correo de pagos activo para transferencias internacionales seguras.</li>
-            <li><b>Western Union:</b> se proporcionarán los datos del receptor, ciudad y país según tu ubicación y método de envío.</li>
+            <li>Trabajamos para mantener altos estándares de seguridad y confidencialidad.</li>
+            <li>Aun así, ningún sistema es 100% invulnerable y el usuario también debe contribuir usando contraseñas seguras y únicas.</li>
           </ul>
+        </section>
+
+        <section class="terms-block">
+          <h3>7. Cumplimiento legal</h3>
+          <p>
+            Estos términos se ajustan a la <b>Ley 1581 de 2012</b> (Colombia), al <b>Reglamento GDPR (UE 2016/679)</b>
+            y a la <b>California Consumer Privacy Act (CCPA)</b>, en lo que resulte aplicable.
+          </p>
+          <p>
+            El uso de RepairOS implica que has leído y aceptas estas condiciones, así como nuestras políticas de tratamiento
+            de datos personales y privacidad.
+          </p>
           <p class="terms-note">
-            Ningún pago manual debe realizarse sin confirmación previa del equipo de soporte. RepairOS no se hace responsable
-            por envíos realizados a direcciones o contactos no oficiales.
-          </p>
-        </section>
-
-        <section class="terms-block">
-          <h3>5. Limitación de responsabilidad</h3>
-          <p>
-            Técnicos y Aprendices no se hace responsable por fallas técnicas, interrupciones de terceros, demoras bancarias,
-            ni por el mal uso que los usuarios puedan dar al sistema o a sus credenciales. El uso indebido del servicio podrá
-            ser sancionado con la suspensión definitiva de la cuenta.
-          </p>
-        </section>
-
-        <section class="terms-block">
-          <h3>6. Aceptación</h3>
-          <p>
-            Al marcar la casilla de aceptación y continuar con el registro, declaras haber leído, comprendido y aceptado la
-            totalidad de los presentes términos y condiciones, así como las políticas de privacidad y tratamiento de datos
-            personales de RepairOS.
+            📲 <b>Contacto oficial:</b> +57 321 917 7941<br>
           </p>
         </section>
       </div>
@@ -666,7 +865,7 @@
   </div>
 
   <script>
-  // URL exclusiva del backend de registro
+  // URL del backend de registro
   const GAS_EXEC = "https://script.google.com/macros/s/AKfycbwrmoUkQmRrSxsKRJkWtGc7nMjhngoCHSKTcwQo-8TdSW6qqMF5LZXS1XFuRgaLmHU5/exec";
 
   const signupForm    = document.getElementById('signupForm');
@@ -674,6 +873,24 @@
   const btnSpinner    = document.getElementById('btnSpinner');
   const statusMsg     = document.getElementById('statusMsg');
   const termsCheckbox = document.getElementById('acceptTermsCheckbox');
+
+  const emailMain     = document.getElementById('emailMain');
+  const loginEmail    = document.getElementById('loginEmail');
+  const emailSuggestions = document.getElementById('emailSuggestions');
+
+  const passwordInput = document.getElementById('passwordInput');
+  const togglePass    = document.getElementById('togglePass');
+
+  // country selector elements
+  const countrySelectBtn = document.getElementById('countrySelectBtn');
+  const countryDropdown  = document.getElementById('countryDropdown');
+  const countrySearch    = document.getElementById('countrySearch');
+  const countryOptionsEl = document.getElementById('countryOptions');
+  const countryFlagEl    = document.getElementById('countryFlag');
+  const countryDialEl    = document.getElementById('countryDial');
+  const countryShortEl   = document.getElementById('countryShort');
+  const countryCodeInput = document.getElementById('countryCode');
+  const whatsappNumber   = document.getElementById('whatsappNumber');
 
   // control de lectura de términos
   let termsViewedEnough = false;
@@ -690,71 +907,179 @@
     }
   }
 
-  signupForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    statusMsg.textContent = "";
-    statusMsg.classList.remove('status-error');
+  // ===== SUGERENCIAS EMAIL =====
+  function updateEmailSuggestions(){
+    const value = (emailMain.value || "").trim();
+    const atIndex = value.indexOf("@");
+    const user = atIndex === -1 ? value : value.slice(0, atIndex);
 
-    // Validación de términos
-    if(!termsCheckbox.checked){
-      alert('Debes aceptar los términos y condiciones para continuar.');
-      return;
-    }
-    if(!termsViewedEnough){
-      alert('Por favor abre y revisa los términos y condiciones antes de continuar.');
-      openTerms(); // forzamos a abrirlos
+    if(!user){
+      emailSuggestions.style.display = "none";
+      emailSuggestions.innerHTML = "";
       return;
     }
 
-    const data = Object.fromEntries(new FormData(signupForm).entries());
-
-    if(!data.login_email) data.login_email = data.email;
-
-    // normalizar aceptación de términos
-    data.accept_terms = data.accept_terms ? "YES" : "NO";
-
-    const payload = {
-      fn: 'publicSignup',
-      data
-    };
-
-    try{
-      setLoading(true);
-
-      const res = await fetch(GAS_EXEC, {
-        method:'POST',
-        headers:{ 'Content-Type':'text/plain' },
-        body: JSON.stringify(payload)
+    const domains = ["gmail.com","outlook.com","hotmail.com","yahoo.com","icloud.com","protonmail.com","live.com","msn.com","aol.com","yandex.com"];
+    emailSuggestions.innerHTML = "";
+    domains.forEach(dom => {
+      const full = user + "@" + dom;
+      const pill = document.createElement("button");
+      pill.type = "button";
+      pill.className = "email-pill";
+      pill.textContent = full;
+      pill.addEventListener("click", () => {
+        emailMain.value = full;
+        emailSuggestions.style.display = "none";
+        emailSuggestions.innerHTML = "";
+        if(!loginEmail.value){
+          loginEmail.value = full;
+        }
       });
+      emailSuggestions.appendChild(pill);
+    });
+    emailSuggestions.style.display = "flex";
+  }
 
-      const out = await res.json();
-      setLoading(false);
+  emailMain.addEventListener("input", updateEmailSuggestions);
+  emailMain.addEventListener("blur", () => {
+    setTimeout(() => {
+      emailSuggestions.style.display = "none";
+    }, 150);
+  });
 
-      if(out.ok){
-        statusMsg.textContent =
-          "Solicitud registrada correctamente. En las próximas horas te contactaremos por correo o WhatsApp con las instrucciones de pago.";
-        signupForm.reset();
-        termsViewedEnough = false; // reset
-
-        // IMPORTANTE: por ahora NO redirigimos a ningún checkout.
-        // Cuando actives pagos automáticos, aquí puedes usar out.checkoutUrl si tu backend lo envía.
-        // if(out.checkoutUrl){
-        //   window.location.href = out.checkoutUrl;
-        // }
-
-      }else{
-        statusMsg.textContent = out.message || "No se pudo registrar la solicitud. Intenta nuevamente.";
-        statusMsg.classList.add('status-error');
-      }
-    }catch(err){
-      console.error(err);
-      setLoading(false);
-      statusMsg.textContent = "Error de conexión. Verifica tu internet e inténtalo de nuevo.";
-      statusMsg.classList.add('status-error');
+  // Prefill login_email con el principal si está vacío
+  loginEmail.addEventListener("focus", () => {
+    if(!loginEmail.value && emailMain.value){
+      loginEmail.value = emailMain.value;
     }
   });
 
-  // ===== TÉRMINOS: ABRIR / CERRAR MODAL =====
+  // ===== LISTA DE PAÍSES CON BANDERAS =====
+  const countries = [
+    { code:"+57", name:"Colombia", flag:"🇨🇴" },
+    { code:"+52", name:"México", flag:"🇲🇽" },
+    { code:"+54", name:"Argentina", flag:"🇦🇷" },
+    { code:"+56", name:"Chile", flag:"🇨🇱" },
+    { code:"+51", name:"Perú", flag:"🇵🇪" },
+    { code:"+593", name:"Ecuador", flag:"🇪🇨" },
+    { code:"+591", name:"Bolivia", flag:"🇧🇴" },
+    { code:"+598", name:"Uruguay", flag:"🇺🇾" },
+    { code:"+595", name:"Paraguay", flag:"🇵🇾" },
+    { code:"+58", name:"Venezuela", flag:"🇻🇪" },
+    { code:"+55", name:"Brasil", flag:"🇧🇷" },
+
+    { code:"+1", name:"Estados Unidos", flag:"🇺🇸" },
+    { code:"+1", name:"Canadá", flag:"🇨🇦" },
+
+    { code:"+34", name:"España", flag:"🇪🇸" },
+    { code:"+351", name:"Portugal", flag:"🇵🇹" },
+    { code:"+33", name:"Francia", flag:"🇫🇷" },
+    { code:"+39", name:"Italia", flag:"🇮🇹" },
+    { code:"+49", name:"Alemania", flag:"🇩🇪" },
+    { code:"+44", name:"Reino Unido", flag:"🇬🇧" },
+    { code:"+41", name:"Suiza", flag:"🇨🇭" },
+    { code:"+31", name:"Países Bajos", flag:"🇳🇱" },
+    { code:"+32", name:"Bélgica", flag:"🇧🇪" },
+    { code:"+43", name:"Austria", flag:"🇦🇹" },
+    { code:"+46", name:"Suecia", flag:"🇸🇪" },
+    { code:"+47", name:"Noruega", flag:"🇳🇴" },
+    { code:"+45", name:"Dinamarca", flag:"🇩🇰" },
+    { code:"+358",name:"Finlandia",flag:"🇫🇮"},
+    { code:"+353",name:"Irlanda",flag:"🇮🇪"},
+    { code:"+420",name:"República Checa",flag:"🇨🇿"},
+    { code:"+421",name:"Eslovaquia",flag:"🇸🇰"},
+    { code:"+36",name:"Hungría",flag:"🇭🇺"},
+    { code:"+48",name:"Polonia",flag:"🇵🇱"},
+    { code:"+40",name:"Rumania",flag:"🇷🇴"},
+    { code:"+380",name:"Ucrania",flag:"🇺🇦"},
+    { code:"+7", name:"Rusia",flag:"🇷🇺"},
+    { code:"+90",name:"Turquía",flag:"🇹🇷"},
+
+    { code:"+27",name:"Sudáfrica",flag:"🇿🇦"},
+    { code:"+234",name:"Nigeria",flag:"🇳🇬"},
+    { code:"+254",name:"Kenia",flag:"🇰🇪"},
+    { code:"+212",name:"Marruecos",flag:"🇲🇦"},
+    { code:"+20",name:"Egipto",flag:"🇪🇬"},
+
+    { code:"+971",name:"Emiratos Árabes Unidos",flag:"🇦🇪"},
+    { code:"+966",name:"Arabia Saudita",flag:"🇸🇦"},
+    { code:"+974",name:"Qatar",flag:"🇶🇦"},
+    { code:"+965",name:"Kuwait",flag:"🇰🇼"},
+
+    { code:"+91",name:"India",flag:"🇮🇳"},
+    { code:"+880",name:"Bangladés",flag:"🇧🇩"},
+    { code:"+92",name:"Pakistán",flag:"🇵🇰"},
+    { code:"+94",name:"Sri Lanka",flag:"🇱🇰"},
+
+    { code:"+81",name:"Japón",flag:"🇯🇵"},
+    { code:"+82",name:"Corea del Sur",flag:"🇰🇷"},
+    { code:"+86",name:"China",flag:"🇨🇳"},
+    { code:"+886",name:"Taiwán",flag:"🇹🇼"},
+    { code:"+66",name:"Tailandia",flag:"🇹🇭"},
+    { code:"+84",name:"Vietnam",flag:"🇻🇳"},
+    { code:"+63",name:"Filipinas",flag:"🇵🇭"},
+    { code:"+62",name:"Indonesia",flag:"🇮🇩"},
+    { code:"+60",name:"Malasia",flag:"🇲🇾"},
+    { code:"+65",name:"Singapur",flag:"🇸🇬"},
+
+    { code:"+61",name:"Australia",flag:"🇦🇺"},
+    { code:"+64",name:"Nueva Zelanda",flag:"🇳🇿"}
+  ];
+
+  function renderCountryOptions(filter=""){
+    const q = filter.toLowerCase();
+    countryOptionsEl.innerHTML = "";
+    countries
+      .filter(c => c.name.toLowerCase().includes(q) || c.code.includes(q))
+      .forEach(c => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "country-option";
+        btn.innerHTML = `<span class="country-flag">${c.flag}</span>
+                         <span class="country-dial">${c.code}</span>
+                         <span class="country-name-short">${c.name}</span>`;
+        btn.addEventListener("click", () => {
+          countryFlagEl.textContent  = c.flag;
+          countryDialEl.textContent  = c.code;
+          countryShortEl.textContent = c.name;
+          countryCodeInput.value     = c.code;
+          countryDropdown.style.display = "none";
+        });
+        countryOptionsEl.appendChild(btn);
+      });
+  }
+
+  countrySelectBtn.addEventListener("click", () => {
+    const isOpen = countryDropdown.style.display === "block";
+    countryDropdown.style.display = isOpen ? "none" : "block";
+    if(!isOpen){
+      countrySearch.value = "";
+      renderCountryOptions("");
+      countrySearch.focus();
+    }
+  });
+
+  countrySearch.addEventListener("input", (e) => {
+    renderCountryOptions(e.target.value);
+  });
+
+  document.addEventListener("click", (e) => {
+    if(!countryDropdown.contains(e.target) && !countrySelectBtn.contains(e.target)){
+      countryDropdown.style.display = "none";
+    }
+  });
+
+  // valor inicial
+  renderCountryOptions("");
+
+  // Toggle contraseña
+  togglePass.addEventListener("click", () => {
+    const isPass = passwordInput.type === "password";
+    passwordInput.type = isPass ? "text" : "password";
+    togglePass.textContent = isPass ? "🙈" : "👁️";
+  });
+
+  // control de lectura de términos
   const termsOverlay   = document.getElementById('termsOverlay');
   const openTermsBtn   = document.getElementById('openTermsBtn');
   const closeTermsBtn  = document.getElementById('closeTermsBtn');
@@ -775,11 +1100,74 @@
   if(openTermsBtn)   openTermsBtn.addEventListener('click', openTerms);
   if(closeTermsBtn)  closeTermsBtn.addEventListener('click', closeTerms);
   if(acceptTermsBtn) acceptTermsBtn.addEventListener('click', () => {
-    termsCheckbox.checked = true; // marcar casilla al aceptar
+    termsCheckbox.checked = true;
     closeTerms();
+  });
+
+  // envío formulario
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusMsg.textContent = "";
+    statusMsg.classList.remove('status-error');
+
+    if(!termsCheckbox.checked){
+      alert('Debes aceptar los términos y condiciones para continuar.');
+      return;
+    }
+    if(!termsViewedEnough){
+      alert('Por favor abre y revisa los términos y condiciones antes de continuar.');
+      openTerms();
+      return;
+    }
+
+    const formData = new FormData(signupForm);
+    const data = Object.fromEntries(formData.entries());
+
+    const cc   = data.country_code || "+57";
+    const num  = (data.whatsapp_number || "").replace(/\s+/g,"");
+    data.whatsapp = cc + num;
+    delete data.country_code;
+    delete data.whatsapp_number;
+
+    if(!data.login_email) data.login_email = data.email;
+    data.accept_terms = data.accept_terms ? "YES" : "NO";
+
+    if(data.payment_method === "EPAYCO"){
+      statusMsg.textContent = "ePayco no está disponible temporalmente. Selecciona otro medio de pago.";
+      statusMsg.classList.add('status-error');
+      return;
+    }
+
+    const payload = { fn: 'publicSignup', data };
+
+    try{
+      setLoading(true);
+
+      const res = await fetch(GAS_EXEC, {
+        method:'POST',
+        headers:{ 'Content-Type':'text/plain' },
+        body: JSON.stringify(payload)
+      });
+
+      const out = await res.json();
+      setLoading(false);
+
+      if(out.ok){
+        statusMsg.textContent =
+          "Solicitud registrada correctamente. En las próximas horas te contactaremos por correo o WhatsApp con las instrucciones de pago.";
+        signupForm.reset();
+        termsViewedEnough = false;
+      }else{
+        statusMsg.textContent = out.message || "No se pudo registrar la solicitud. Intenta nuevamente.";
+        statusMsg.classList.add('status-error');
+      }
+    }catch(err){
+      console.error(err);
+      setLoading(false);
+      statusMsg.textContent = "Error de conexión. Verifica tu internet e inténtalo de nuevo.";
+      statusMsg.classList.add('status-error');
+    }
   });
   </script>
 </body>
 </html>
-
-
