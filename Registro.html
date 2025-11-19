@@ -637,6 +637,41 @@
       color:#6b7280;
       max-width:15rem;
     }
+
+    /* Bloque detalle plan */
+    .plan-detail{
+      margin:4px 0 10px;
+      padding:10px 12px;
+      border-radius:14px;
+      background:#f9fafb;
+      border:1px dashed #d4d4d8;
+    }
+    .plan-detail-label{
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:#6b7280;
+      margin-bottom:4px;
+    }
+    .plan-detail h3{
+      margin:0 0 4px;
+      font-size:13px;
+      color:#111827;
+    }
+    .plan-detail p{
+      margin:0 0 4px;
+      font-size:11px;
+      color:#6b7280;
+    }
+    .plan-detail ul{
+      margin:4px 0 0;
+      padding-left:18px;
+    }
+    .plan-detail li{
+      font-size:11px;
+      color:#4b5563;
+      margin-bottom:2px;
+    }
   </style>
 </head>
 <body>
@@ -779,7 +814,7 @@
                     <span class="plan-mini-unit">COP</span>
                   </div>
                   <p class="plan-mini-note">
-                    Ideal para probar RepairOS en tu taller sin compromiso.
+                    Starter para probar RepairOS sin compromiso. 1 sede y 2 usuarios.
                   </p>
                 </div>
 
@@ -792,7 +827,7 @@
                     <span class="plan-mini-unit">COP</span>
                   </div>
                   <p class="plan-mini-note">
-                    Mejor equilibrio entre precio y tiempo, perfecto para talleres activos.
+                    Ideal para talleres activos: 2 sedes, 4 usuarios y reportes por fechas.
                   </p>
                 </div>
 
@@ -804,11 +839,21 @@
                     <span class="plan-mini-unit">COP</span>
                   </div>
                   <p class="plan-mini-note">
-                    La opción inteligente para negocios estables: mejor precio por mes.
+                    Full para negocios en crecimiento: más sedes, más usuarios y configuración avanzada.
                   </p>
                 </div>
               </div>
               <!-- FIN BLOQUES PREMIUM -->
+
+              <!-- Detalle dinámico del plan -->
+              <div class="plan-detail" id="planDetail">
+                <div class="plan-detail-label">Qué incluye este plan</div>
+                <h3 id="planDetailName">Selecciona un plan de licencia</h3>
+                <p id="planDetailTagline">
+                  Haz clic en una tarjeta o elige un plan para ver el detalle de lo que incluye.
+                </p>
+                <ul id="planDetailList"></ul>
+              </div>
 
               <div class="grid">
                 <label>
@@ -1016,6 +1061,9 @@
 
   const planCards = document.querySelectorAll('.plan-mini-card');
   const planSelect = document.getElementById('licensePlanSelect');
+  const planDetailName = document.getElementById('planDetailName');
+  const planDetailTagline = document.getElementById('planDetailTagline');
+  const planDetailList = document.getElementById('planDetailList');
 
   // control de lectura de términos
   let termsViewedEnough = false;
@@ -1204,7 +1252,65 @@
     togglePass.textContent = isPass ? "🙈" : "👁️";
   });
 
-  // Sincronizar cards de planes con el select
+  // ===== Detalles de planes =====
+  const planDetails = {
+    PRO_1M: {
+      name: "Plan PRO 1 mes — Starter",
+      tagline: "Ideal para probar RepairOS sin compromiso durante un mes.",
+      bullets: [
+        "1 sede (1 taller) y hasta 2 usuarios con acceso.",
+        "Módulos base activos: órdenes, clientes, inventario y estados.",
+        "Historial de reparaciones por cliente y por equipo.",
+        "Reporte básico mensual de órdenes (cantidad y valor total).",
+        "Soporte por WhatsApp en horario laboral estándar."
+      ]
+    },
+    PRO_6M: {
+      name: "Plan PRO 6 meses — Growth",
+      tagline: "Pensado para talleres activos que ya manejan buen volumen de equipos.",
+      bullets: [
+        "Hasta 2 sedes dentro del mismo negocio.",
+        "Hasta 4 usuarios (administración, caja y técnicos).",
+        "Reportes por rango de fechas de órdenes y ventas.",
+        "Estados personalizados para tu flujo (ej. en diagnóstico, esperando repuesto, listo para entrega).",
+        "Migración inicial simple de datos desde Excel (clientes y equipos).",
+        "Soporte por WhatsApp con prioridad media."
+      ]
+    },
+    PRO_12M: {
+      name: "Plan PRO 12 meses — Elite",
+      tagline: "Para talleres en crecimiento o cadenas que quieren profesionalizar todo su flujo.",
+      bullets: [
+        "Hasta 5 sedes y hasta 8 usuarios con acceso.",
+        "Reportes avanzados por técnico, tipo de equipo, marca y canal de entrada.",
+        "Automatizaciones: recordatorios por WhatsApp o correo para equipos listos o pendientes (según configuración).",
+        "Configuración avanzada del taller: logo, datos de contacto y datos en la impresión de comprobantes.",
+        "Sesión de onboarding 1 a 1 para definir y ajustar el flujo de trabajo de tu taller.",
+        "Soporte prioritario y acceso anticipado a nuevas funciones."
+      ]
+    }
+  };
+
+  function updatePlanDetail(planValue){
+    const detail = planDetails[planValue];
+    planDetailList.innerHTML = "";
+
+    if(!detail){
+      planDetailName.textContent = "Selecciona un plan de licencia";
+      planDetailTagline.textContent =
+        "Haz clic en una tarjeta o elige un plan para ver el detalle de lo que incluye.";
+      return;
+    }
+
+    planDetailName.textContent = detail.name;
+    planDetailTagline.textContent = detail.tagline;
+    detail.bullets.forEach(text => {
+      const li = document.createElement("li");
+      li.textContent = text;
+      planDetailList.appendChild(li);
+    });
+  }
+
   function setActivePlan(planValue){
     if(planSelect){
       planSelect.value = planValue || "";
@@ -1217,6 +1323,7 @@
         card.classList.remove('plan-mini-card--active');
       }
     });
+    updatePlanDetail(planValue);
   }
 
   planCards.forEach(card => {
@@ -1231,6 +1338,9 @@
       setActivePlan(e.target.value);
     });
   }
+
+  // Selección por defecto: PRO_6M
+  setActivePlan("PRO_6M");
 
   // control de lectura de términos
   const termsOverlay   = document.getElementById('termsOverlay');
@@ -1310,7 +1420,7 @@
           "Solicitud registrada correctamente. En las próximas horas te contactaremos por correo o WhatsApp con las instrucciones de pago.";
         signupForm.reset();
         termsViewedEnough = false;
-        setActivePlan(""); // limpia selección visual
+        setActivePlan("PRO_6M");
       }else{
         statusMsg.textContent = out.message || "No se pudo registrar la solicitud. Intenta nuevamente.";
         statusMsg.classList.add('status-error');
