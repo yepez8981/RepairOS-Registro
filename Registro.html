@@ -152,7 +152,7 @@
 
     /* Columna derecha: formulario */
     .card{
-      background:var(--surface);
+      background:linear-gradient(145deg,#ffffff,#f9fafb);
       border-radius:22px;
       border:1px solid var(--border);
       box-shadow:0 16px 40px rgba(0,0,0,.18);
@@ -194,7 +194,7 @@
       text-transform:uppercase;
       letter-spacing:.12em;
       color:#6b7280;
-      margin:4px 0 2px;
+      margin:4px 0 4px;
     }
     .grid{
       display:grid;
@@ -557,6 +557,86 @@
     }
 
     option[disabled]{ color:#9ca3af; }
+
+    /* === MINI BLOQUES DE PLANES DENTRO DEL FORM === */
+    .plan-mini-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+      margin:4px 0 10px;
+    }
+    @media (max-width:900px){
+      .plan-mini-grid{
+        grid-template-columns:1fr;
+      }
+    }
+    .plan-mini-card{
+      border-radius:16px;
+      border:1px solid #e5e7eb;
+      padding:9px 10px 8px;
+      background:
+        radial-gradient(circle at 0 0,#f4f4f5 0,#ffffff 55%);
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+      transition:border-color .12s ease, box-shadow .12s ease, transform .08s ease;
+    }
+    .plan-mini-card--highlight{
+      border-color:#16a34a;
+      box-shadow:0 12px 28px rgba(22,163,74,.22);
+      background:
+        radial-gradient(circle at 0 0,#dcfce7 0,#ffffff 60%);
+    }
+    .plan-mini-card:hover{
+      transform:translateY(-1px);
+      box-shadow:0 8px 20px rgba(0,0,0,.16);
+    }
+    .plan-mini-card--active{
+      border-color:#000;
+      box-shadow:0 10px 24px rgba(0,0,0,.30);
+    }
+    .plan-mini-tag{
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:.11em;
+      color:#6b7280;
+      margin-bottom:4px;
+    }
+    .plan-mini-chip{
+      position:absolute;
+      top:7px;
+      right:8px;
+      font-size:9px;
+      padding:2px 7px;
+      border-radius:999px;
+      background:#16a34a;
+      color:#022c22;
+      font-weight:600;
+    }
+    .plan-mini-price{
+      display:flex;
+      align-items:baseline;
+      gap:2px;
+    }
+    .plan-mini-currency{
+      font-size:11px;
+      color:#6b7280;
+    }
+    .plan-mini-amount{
+      font-size:16px;
+      font-weight:700;
+      color:#111827;
+    }
+    .plan-mini-unit{
+      font-size:10px;
+      color:#6b7280;
+    }
+    .plan-mini-note{
+      margin:2px 0 0;
+      font-size:10px;
+      color:#6b7280;
+      max-width:15rem;
+    }
   </style>
 </head>
 <body>
@@ -688,14 +768,56 @@
 
             <div>
               <div class="section-label">Licencia y pago</div>
+
+              <!-- BLOQUES PREMIUM DE PLANES -->
+              <div class="plan-mini-grid">
+                <div class="plan-mini-card" data-plan="PRO_1M">
+                  <div class="plan-mini-tag">Plan PRO 1 mes</div>
+                  <div class="plan-mini-price">
+                    <span class="plan-mini-currency">$</span>
+                    <span class="plan-mini-amount">79.000</span>
+                    <span class="plan-mini-unit">COP</span>
+                  </div>
+                  <p class="plan-mini-note">
+                    Ideal para probar RepairOS en tu taller sin compromiso.
+                  </p>
+                </div>
+
+                <div class="plan-mini-card plan-mini-card--highlight" data-plan="PRO_6M">
+                  <div class="plan-mini-tag">Plan PRO 6 meses</div>
+                  <span class="plan-mini-chip">Recomendado</span>
+                  <div class="plan-mini-price">
+                    <span class="plan-mini-currency">$</span>
+                    <span class="plan-mini-amount">390.000</span>
+                    <span class="plan-mini-unit">COP</span>
+                  </div>
+                  <p class="plan-mini-note">
+                    Mejor equilibrio entre precio y tiempo, perfecto para talleres activos.
+                  </p>
+                </div>
+
+                <div class="plan-mini-card" data-plan="PRO_12M">
+                  <div class="plan-mini-tag">Plan PRO 12 meses</div>
+                  <div class="plan-mini-price">
+                    <span class="plan-mini-currency">$</span>
+                    <span class="plan-mini-amount">720.000</span>
+                    <span class="plan-mini-unit">COP</span>
+                  </div>
+                  <p class="plan-mini-note">
+                    La opción inteligente para negocios estables: mejor precio por mes.
+                  </p>
+                </div>
+              </div>
+              <!-- FIN BLOQUES PREMIUM -->
+
               <div class="grid">
                 <label>
                   Plan de licencia
-                  <select name="license_plan" required>
+                  <select name="license_plan" id="licensePlanSelect" required>
                     <option value="">Selecciona un plan</option>
-                    <option value="PRO_1M">1 mes</option>
-                    <option value="PRO_6M">6 meses</option>
-                    <option value="PRO_12M">12 meses</option>
+                    <option value="PRO_1M">1 mes · PRO_1M</option>
+                    <option value="PRO_6M">6 meses · PRO_6M</option>
+                    <option value="PRO_12M">12 meses · PRO_12M</option>
                   </select>
                 </label>
                 <label>
@@ -892,6 +1014,9 @@
   const countryCodeInput = document.getElementById('countryCode');
   const whatsappNumber   = document.getElementById('whatsappNumber');
 
+  const planCards = document.querySelectorAll('.plan-mini-card');
+  const planSelect = document.getElementById('licensePlanSelect');
+
   // control de lectura de términos
   let termsViewedEnough = false;
   let termsTimer = null;
@@ -1079,6 +1204,34 @@
     togglePass.textContent = isPass ? "🙈" : "👁️";
   });
 
+  // Sincronizar cards de planes con el select
+  function setActivePlan(planValue){
+    if(planSelect){
+      planSelect.value = planValue || "";
+    }
+    planCards.forEach(card => {
+      const cardPlan = card.getAttribute('data-plan');
+      if(cardPlan === planValue){
+        card.classList.add('plan-mini-card--active');
+      }else{
+        card.classList.remove('plan-mini-card--active');
+      }
+    });
+  }
+
+  planCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const val = card.getAttribute('data-plan');
+      setActivePlan(val);
+    });
+  });
+
+  if(planSelect){
+    planSelect.addEventListener('change', (e) => {
+      setActivePlan(e.target.value);
+    });
+  }
+
   // control de lectura de términos
   const termsOverlay   = document.getElementById('termsOverlay');
   const openTermsBtn   = document.getElementById('openTermsBtn');
@@ -1157,6 +1310,7 @@
           "Solicitud registrada correctamente. En las próximas horas te contactaremos por correo o WhatsApp con las instrucciones de pago.";
         signupForm.reset();
         termsViewedEnough = false;
+        setActivePlan(""); // limpia selección visual
       }else{
         statusMsg.textContent = out.message || "No se pudo registrar la solicitud. Intenta nuevamente.";
         statusMsg.classList.add('status-error');
